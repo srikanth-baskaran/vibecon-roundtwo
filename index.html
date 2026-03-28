@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VibeCon Round 2 — Srikanth Baskaran</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #F2CA50;
+    --dark: #131313;
+    --darker: #0E0E0E;
+    --text: #E5E2E1;
+    --text-muted: #D0C5AF;
+    --border: rgba(77, 70, 53, 0.3);
+    --blue: #3B9BF5;
+  }
+
+  html {
+    scroll-behavior: auto;
+    overflow: hidden;
+    background: var(--dark);
+  }
+
+  body {
+    font-family: 'Space Grotesk', monospace;
+    background: var(--dark);
+    color: var(--text);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ─── Slide Container ─── */
+  .deck {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .deck::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(1200px 800px at 15% -10%, rgba(212, 175, 55, 0.12), transparent 60%),
+      radial-gradient(900px 600px at 85% 110%, rgba(59, 155, 245, 0.08), transparent 60%),
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: auto, auto, 80px 80px, 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6vh 8vw;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    pointer-events: none;
+    will-change: opacity, transform;
+    z-index: 1;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .slide.exit-up {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+
+  /* ─── Progress Bar ─── */
+  .progress-track {
+    position: fixed;
+    right: 3vw;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 100;
+  }
+
+  .progress-dot {
+    width: 8px;
+    height: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    background: transparent;
+    transition: all 0.4s ease;
+    cursor: pointer;
+  }
+
+  .progress-dot.active {
+    background: var(--gold);
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+    transform: scale(1.5);
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(212, 175, 55, 0.5); }
+    50% { box-shadow: 0 0 22px rgba(212, 175, 55, 0.8); }
+  }
+
+  /* ─── Nav hint ─── */
+  .nav-hint {
+    position: fixed;
+    bottom: 3vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(208, 197, 175, 0.3);
+    z-index: 100;
+    transition: opacity 0.6s ease;
+  }
+
+  .nav-hint.hidden { opacity: 0; }
+
+  /* ─── Top bar ─── */
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4vw;
+    border-bottom: 1px solid var(--border);
+    background: rgba(19, 19, 19, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .top-bar .brand { color: #fff; font-weight: 700; letter-spacing: 0.2em; }
+  .top-bar .tag { color: var(--gold); }
+
+  /* ─── Bottom bar ─── */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4vw;
+    border-top: 1px solid var(--border);
+    background: rgba(19, 19, 19, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(208, 197, 175, 0.2);
+  }
+
+  /* ─── Typography ─── */
+  .headline-xl {
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+
+  .headline-lg {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .headline-md {
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .statement {
+    font-size: clamp(2.2rem, 5vw, 5.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .statement-tight {
+    font-size: clamp(1.8rem, 4vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .body-lg {
+    font-size: clamp(1.2rem, 2.2vw, 2rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  .body-sm {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(208, 197, 175, 0.5);
+  }
+
+  .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2vh;
+  }
+
+  .gold { color: var(--gold); }
+  .white { color: #fff; }
+  .muted { color: var(--text-muted); }
+
+  .stat-huge {
+    font-size: clamp(6rem, 16vw, 14rem);
+    font-weight: 700;
+    line-height: 0.85;
+    color: var(--gold);
+  }
+
+  /* ─── Slide layouts ─── */
+  .slide-left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .slide-center {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* ─── Metric chips ─── */
+  .metrics {
+    display: flex;
+    gap: 2.5vw;
+    margin-top: 3vh;
+    flex-wrap: wrap;
+  }
+
+  .metric {
+    border-left: 3px solid var(--gold);
+    padding: 1.2vh 1.5vw;
+  }
+
+  .metric-value {
+    font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.4vh;
+  }
+
+  /* ─── Feature list ─── */
+  .feature-list {
+    display: grid;
+    gap: 2.5vh;
+    margin-top: 4vh;
+    max-width: 900px;
+  }
+
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2vw;
+  }
+
+  .feature .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    margin-top: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .feature p {
+    font-size: clamp(1.1rem, 2vw, 1.7rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  .feature p strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* ─── Stat pair ─── */
+  .stat-pair {
+    display: flex;
+    gap: 4vw;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-top: 4vh;
+  }
+
+  .stat-block {
+    border-left: 3px solid var(--gold);
+    padding-left: 1.5vw;
+  }
+
+  .stat-block .value {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 0.9;
+  }
+
+  .stat-caption {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 1vh;
+  }
+
+  /* ─── Video embed ─── */
+  .video-shell {
+    width: min(980px, 88vw);
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--border);
+    background: #0E0E0E;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+  }
+
+  .video-shell::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    pointer-events: none;
+  }
+
+  .video-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2vh;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: radial-gradient(500px 300px at 50% 40%, rgba(212, 175, 55, 0.08), transparent 70%);
+    text-align: center;
+    padding: 4vh 4vw;
+  }
+
+  .video-placeholder .play {
+    width: 62px;
+    height: 62px;
+    border-radius: 999px;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+  }
+
+  .video-shell.has-video .video-placeholder {
+    display: none;
+  }
+
+  /* ─── Divider ─── */
+  .gold-line {
+    width: 80px;
+    height: 3px;
+    background: var(--gold);
+    margin: 3vh 0;
+  }
+
+  /* ─── Animate-in children ─── */
+  .slide.active .fade-up {
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .slide.active .fade-up-d1 { animation-delay: 0.15s; }
+  .slide.active .fade-up-d2 { animation-delay: 0.3s; }
+  .slide.active .fade-up-d3 { animation-delay: 0.45s; }
+  .slide.active .fade-up-d4 { animation-delay: 0.6s; }
+  .slide.active .fade-up-d5 { animation-delay: 0.75s; }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 760px) {
+    .metrics, .stat-pair {
+      gap: 4vw;
+    }
+
+    .top-bar {
+      letter-spacing: 0.2em;
+      font-size: 0.6rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <span class="brand">SRIKANTH BASKARAN</span>
+  <span class="tag">VIBECON ROUND 2</span>
+</div>
+
+<!-- Progress Dots -->
+<div class="progress-track" id="progressTrack"></div>
+
+<!-- Nav Hint -->
+<div class="nav-hint" id="navHint">&#8593; &#8595; &nbsp; Navigate</div>
+
+<!-- Bottom Bar -->
+<div class="bottom-bar">
+  <span>VIBECON ROUND 2</span>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SLIDES                                       -->
+<!-- ════════════════════════════════════════════ -->
+<div class="deck" id="deck">
+
+  <!-- ── SLIDE 0: INTRO ── -->
+  <div class="slide slide-center" data-bg="#131313">
+    <div class="label fade-up">Solutions Architect</div>
+    <h1 class="headline-xl white fade-up fade-up-d1">SRIKANTH<br/>BASKARAN</h1>
+    <div class="gold-line fade-up fade-up-d2" style="margin:3vh auto;"></div>
+    <p class="statement-tight white fade-up fade-up-d3">One idea. No team. No budget.</p>
+    <p class="statement gold fade-up fade-up-d4" style="margin-top:2vh;">Just me and AI.</p>
+  </div>
+
+  <!-- ── SLIDE 1: TEAM ── -->
+  <div class="slide slide-left" data-bg="#0E0E0E">
+    <div class="label fade-up">Team</div>
+    <p class="fade-up fade-up-d1" style="max-width:900px; font-size:clamp(1.1rem, 2vw, 1.7rem); font-weight:300; line-height:1.5; color: var(--text-muted);">
+      I deliver systems for US State Governments and global enterprises through my company.
+    </p>
+    <h2 class="statement white fade-up fade-up-d2" style="max-width:1000px; margin-top:3vh;">
+      I SHIP AI PRODUCTS END-TO-END &mdash; IDEA TO MVP IN DAYS.
+    </h2>
+    <p class="statement-tight gold fade-up fade-up-d3" style="margin-top:2.5vh;">
+      It&apos;s live. I build and ship, not just pitch.
+    </p>
+  </div>
+
+
+  <!-- ── SLIDE 3: MARKET ── -->
+  <div class="slide slide-left" data-bg="#0E0E0E">
+    <div class="label fade-up">Market</div>
+    <h2 class="statement white fade-up fade-up-d1" style="max-width:1000px;">
+      You asked what I&apos;d build with full backing. Here it is.
+    </h2>
+    <div class="stat-pair fade-up fade-up-d2">
+      <div class="stat-block">
+        <div class="value">$268B</div>
+        <div class="stat-caption">India&apos;s residential construction market</div>
+      </div>
+      <div class="stat-block">
+        <div class="value">9M</div>
+        <div class="stat-caption">Individual homes built every year</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 4: PROBLEM ── -->
+  <div class="slide slide-left" data-bg="#131313">
+    <div class="label fade-up">Problem</div>
+    <h2 class="statement white fade-up fade-up-d1">
+      It&apos;s fundamentally opaque.
+    </h2>
+    <div class="feature-list fade-up fade-up-d2">
+      <div class="feature">
+        <span class="dot"></span>
+        <p>Homeowners can&apos;t assess true costs, detect inflation, or catch fraud &mdash; the realization hits only after payment.</p>
+      </div>
+      <div class="feature">
+        <span class="dot"></span>
+        <p>The result? Lakhs of stalled projects, mid-construction, fueled by <strong>blind trust</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 5: SOLUTION ── -->
+  <div class="slide slide-left" data-bg="#0E0E0E">
+    <div class="label fade-up">Solution</div>
+    <h2 class="statement white fade-up fade-up-d1">
+      Total transparency. <span class="gold">Rupee by rupee.</span>
+    </h2>
+    <div class="feature-list fade-up fade-up-d2">
+      <div class="feature">
+        <span class="dot"></span>
+        <p>Baseline cost estimates.</p>
+      </div>
+      <div class="feature">
+        <span class="dot"></span>
+        <p>Contractor quote verification.</p>
+      </div>
+      <div class="feature">
+        <span class="dot"></span>
+        <p>Real-time progress tracking.</p>
+      </div>
+      <div class="feature">
+        <span class="dot"></span>
+        <p>A permanent record from foundation to handover.</p>
+      </div>
+    </div>
+    <p class="fade-up fade-up-d3" style="margin-top:4vh; color: var(--text-muted); font-size:clamp(1.1rem, 2vw, 1.6rem); font-weight:400; letter-spacing:0.04em;">
+      I haven&apos;t built it <span class="gold" style="font-weight:700; letter-spacing:0.06em; font-size:0.9em;">YET</span>
+    </p>
+  </div>
+
+  <!-- ── SLIDE 6: PRODUCT ── -->
+  <div class="slide slide-center" data-bg="#131313">
+    <div class="label fade-up">Product</div>
+    <h2 class="statement white fade-up fade-up-d1">But I don&apos;t just talk about ideas.</h2>
+    <p class="body-lg fade-up fade-up-d2" style="max-width:860px; text-align:center;">
+      Last month, I shipped a live product &mdash; solving a problem <span class="white" style="font-weight:600;">85 million people</span> never had an answer to.
+    </p>
+    <div class="gold-line fade-up fade-up-d3" style="margin:3vh auto;"></div>
+    <p class="statement gold fade-up fade-up-d4" style="font-size:clamp(2rem,5vw,4rem);">
+      Let me show you.
+    </p>
+  </div>
+
+  <!-- ── SLIDE 7: DEMO ── -->
+  <div class="slide slide-center" data-bg="#0E0E0E">
+    <div class="label fade-up">Demo</div>
+    <h2 class="statement white fade-up fade-up-d1" style="max-width:900px;">
+      This is Templo.
+    </h2>
+    <div class="video-shell fade-up fade-up-d2" data-loom="">
+      <iframe class="video-frame" title="Templo demo" allowfullscreen></iframe>
+      <div class="video-placeholder">
+        <div class="play">PLAY</div>
+        <div>TEMPLO DEMO</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 8: THESIS ── -->
+  <div class="slide slide-center" data-bg="#131313">
+    <div class="label fade-up">Thesis</div>
+    <h2 class="statement white fade-up fade-up-d1" style="max-width:900px;">
+      This is the kind of problem AI is actually useful for.
+    </h2>
+    <p class="body-lg fade-up fade-up-d2" style="max-width:900px; text-align:center; margin-top:3vh;">
+      This isn&apos;t content. This isn&apos;t bookings.
+    </p>
+    <div class="gold-line fade-up fade-up-d3" style="margin:3vh auto;"></div>
+    <p class="statement gold fade-up fade-up-d4" style="font-size:clamp(2.5rem,6vw,5rem);">
+      Identity infrastructure.
+    </p>
+  </div>
+
+  <!-- ── SLIDE 9: SCALE ── -->
+  <div class="slide slide-center" data-bg="#0E0E0E">
+    <div class="label fade-up">Scale</div>
+    <div class="stat-huge fade-up fade-up-d1">PAN-INDIA</div>
+    <p class="body-lg fade-up fade-up-d2" style="max-width:800px; text-align:center;">
+      Tamils are where I start. But this is every Hindu family&apos;s question &mdash; across every state, every language in India.
+    </p>
+    <p class="statement-tight white fade-up fade-up-d3" style="margin-top:3vh;">
+      Nobody has built it.
+    </p>
+  </div>
+
+  <!-- ── SLIDE 10: VISION ── -->
+  <div class="slide slide-left" data-bg="#131313">
+    <div class="label fade-up">Vision</div>
+    <h2 class="statement white fade-up fade-up-d1">
+      Different problem. Same instinct.
+    </h2>
+    <div class="feature-list fade-up fade-up-d2">
+      <div class="feature">
+        <span class="dot"></span>
+        <p><strong>$268B</strong> market. <strong>9 million</strong> homes. <strong>Zero transparency.</strong></p>
+      </div>
+      <div class="feature">
+        <span class="dot"></span>
+        <p><strong>That&apos;s what I build for.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 11: CLOSE ── -->
+  <div class="slide slide-center" data-bg="#0E0E0E">
+    <div class="label fade-up">Close</div>
+    <p class="body-lg fade-up fade-up-d1" style="max-width:940px; text-align:center;">
+      I&apos;m a Solutions Architect from Chennai. I shipped a live product &mdash; solo, with AI, in days &mdash; that 85 million people never had an answer for.
+    </p>
+    <div class="gold-line fade-up fade-up-d2" style="margin:3vh auto;"></div>
+    <p class="statement gold fade-up fade-up-d3" style="font-size:clamp(2rem,5vw,4rem);">
+      I know how to ship. And I&apos;m just getting started.
+    </p>
+    <p class="statement-tight white fade-up fade-up-d4" style="margin-top:4vh;">
+      That&apos;s why I belong in the room.
+    </p>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const track = document.getElementById('progressTrack');
+  const hint = document.getElementById('navHint');
+  let current = 0;
+  let transitioning = false;
+
+  // Build progress dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    track.appendChild(dot);
+  });
+
+  function goTo(index) {
+    if (index === current || index < 0 || index >= slides.length || transitioning) return;
+    transitioning = true;
+
+    const direction = index > current ? 1 : -1;
+
+    // Remove active from current
+    slides[current].classList.remove('active');
+    if (direction === 1) {
+      slides[current].classList.add('exit-up');
+    }
+
+    // Reset fade-up children for new slide
+    slides[index].querySelectorAll('.fade-up').forEach(el => {
+      el.style.animation = 'none';
+      el.offsetHeight; // reflow
+      el.style.animation = '';
+    });
+
+    // Activate new slide
+    slides[index].classList.remove('exit-up');
+    slides[index].classList.add('active');
+
+    // Update bg
+    document.body.style.background = slides[index].dataset.bg || '#131313';
+
+    // Update dots
+    document.querySelectorAll('.progress-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === index);
+    });
+
+    // Hide hint after first nav
+    if (current === 0 && index !== 0) {
+      hint.classList.add('hidden');
+    }
+
+    current = index;
+
+    setTimeout(() => {
+      slides.forEach((s, i) => {
+        if (i !== current) {
+          s.classList.remove('exit-up');
+        }
+      });
+      transitioning = false;
+    }, 650);
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      goTo(current + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      goTo(current - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      goTo(slides.length - 1);
+    }
+  });
+
+  // Touch / swipe support
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 50) {
+      goTo(current + (diff > 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  // Mouse wheel
+  let wheelTimeout;
+  document.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    clearTimeout(wheelTimeout);
+    wheelTimeout = setTimeout(() => {
+      if (e.deltaY > 0) goTo(current + 1);
+      else if (e.deltaY < 0) goTo(current - 1);
+    }, 80);
+  }, { passive: false });
+
+  // Loom embed handling
+  document.querySelectorAll('.video-shell').forEach((shell) => {
+    const frame = shell.querySelector('iframe');
+    const loomUrl = (shell.dataset.loom || '').trim();
+    if (frame && loomUrl) {
+      frame.src = loomUrl;
+      shell.classList.add('has-video');
+    }
+  });
+
+  // Init first slide
+  slides[0].classList.add('active');
+
+})();
+</script>
+</body>
+</html>

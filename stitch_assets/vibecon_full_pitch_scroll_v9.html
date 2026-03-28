@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SRIKANTH BASKARAN / THE SOVEREIGN TERMINAL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f2ca50",
+                        "on-primary-container": "#554300",
+                        "on-tertiary-container": "#254188",
+                        "surface": "#131313",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-secondary-fixed-variant": "#454747",
+                        "tertiary": "#bfcdff",
+                        "primary-container": "#d4af37",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#241a00",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#574500",
+                        "primary-fixed-dim": "#e9c349",
+                        "error-container": "#93000a",
+                        "surface-dim": "#131313",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "on-secondary": "#2f3131",
+                        "on-surface": "#e5e2e1",
+                        "secondary": "#c6c6c7",
+                        "inverse-on-surface": "#313030",
+                        "surface-variant": "#353535",
+                        "secondary-container": "#454747",
+                        "inverse-surface": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#735c00",
+                        "secondary-fixed": "#e2e2e2",
+                        "background": "#131313",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary-container": "#b4b5b5",
+                        "surface-tint": "#e9c349",
+                        "outline-variant": "#4d4635",
+                        "on-primary": "#3c2f00",
+                        "primary-fixed": "#ffe088",
+                        "outline": "#99907c",
+                        "on-tertiary-fixed": "#00174b",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-bright": "#393939",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container": "#20201f",
+                        "on-tertiary": "#082b72",
+                        "surface-container-highest": "#353535",
+                        "on-tertiary-fixed-variant": "#27438a",
+                        "on-background": "#e5e2e1",
+                        "on-surface-variant": "#d0c5af",
+                        "tertiary-container": "#97b0ff",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-fixed": "#dbe1ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk", "monospace"],
+                        "body": ["Space Grotesk", "monospace"],
+                        "label": ["Space Grotesk", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            scroll-behavior: smooth;
+        }
+        .mono-tight {
+            font-family: 'Space Grotesk', monospace;
+            letter-spacing: -0.02em;
+        }
+        .blink-on-click:active {
+            opacity: 0.5;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4d4635;
+        }
+    </style>
+</head>
+<body class="font-body antialiased">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full bg-[#131313] text-[#D4AF37] font-mono uppercase tracking-tighter antialiased border-b border-[#4D4635]/20 flex justify-between items-center px-12 py-4 z-50">
+<div class="text-lg font-bold tracking-widest text-white">MAXIMILIAN VOGT / BERLIN, DE</div>
+<div class="hidden md:flex space-x-8">
+<a class="text-[#D4AF37] border-b border-[#D4AF37] pb-1 blink-on-click" href="#intro">INTRO</a>
+<a class="text-[#D0C5AF] hover:text-white transition-colors duration-100 blink-on-click" href="#ambition">AMBITION</a>
+<a class="text-[#D0C5AF] hover:text-white transition-colors duration-100 blink-on-click" href="#proof">PROOF</a>
+<a class="text-[#D0C5AF] hover:text-white transition-colors duration-100 blink-on-click" href="#vision">VISION</a>
+</div>
+<button class="bg-[#D4AF37] text-[#3C2F00] px-6 py-2 font-bold hover:bg-[#F2CA50] transition-colors">CONTACT</button>
+</nav>
+<!-- Main Content Flow -->
+<main class="pt-24 pb-32">
+<!-- 1. INTRO SECTION -->
+<section class="min-h-screen flex flex-col justify-center px-12 md:px-24 bg-[#131313]" id="intro">
+<div class="max-w-6xl">
+<span class="text-[#D4AF37] font-mono tracking-[0.4em] text-sm block mb-8">SOLUTIONS ARCHITECT. CHENNAI.</span>
+<h1 class="text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.9] mono-tight uppercase text-white mb-12">
+                    SRIKANTH <br/> BASKARAN
+                </h1>
+<div class="grid md:grid-cols-2 gap-16 items-end">
+<p class="text-3xl md:text-5xl font-light text-[#D0C5AF] leading-tight">
+                        "I don't wait for the right time. <span class="text-white font-bold italic">I build.</span>"
+                    </p>
+<div class="border-l border-[#D4AF37] pl-8 py-4 space-y-4">
+<div class="text-sm font-mono text-[#D4AF37] uppercase tracking-widest">Live Deployment Metrics</div>
+<div class="text-4xl font-bold text-white uppercase leading-none">146 COMMITS.</div>
+<div class="text-4xl font-bold text-white uppercase leading-none">SOLO. AI. WEEKS.</div>
+<div class="text-4xl font-bold text-[#D4AF37] uppercase leading-none">IT'S LIVE.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. THE AMBITION -->
+<section class="min-h-screen flex flex-col justify-center px-12 md:px-24 bg-[#0E0E0E]" id="ambition">
+<div class="grid md:grid-cols-12 gap-12">
+<div class="md:col-span-7">
+<h2 class="text-sm font-mono text-[#D4AF37] mb-12 tracking-[0.5em] uppercase">The Ambition — Construction</h2>
+<div class="space-y-2">
+<div class="text-[12rem] font-bold text-[#D4AF37] leading-none">$268B</div>
+<p class="text-3xl text-white font-medium uppercase tracking-tighter">India Construction Market</p>
+</div>
+<div class="mt-24 space-y-12">
+<div class="flex items-baseline space-x-6 border-b border-[#4D4635]/20 pb-8">
+<span class="text-5xl font-bold text-white">4.8 LAKH</span>
+<span class="text-2xl text-[#D0C5AF] uppercase tracking-widest">Homes Stuck. Blind Faith.</span>
+</div>
+<p class="text-2xl text-[#D0C5AF] max-w-xl leading-relaxed">
+                            Growing to <span class="text-white">$400B by 2031</span>. 9 Million Homes a year. The industry is bleeding trust. We fix it with technical precision.
+                        </p>
+</div>
+</div>
+<div class="md:col-span-5 flex flex-col justify-center space-y-4">
+<div class="p-8 bg-[#1C1B1B] border-l-4 border-[#D4AF37]">
+<h3 class="text-white font-bold text-xl mb-4 uppercase">AI QUOTE VERIFICATION</h3>
+<p class="text-sm text-[#D0C5AF] font-mono">ELIMINATING INFLATED COSTS THROUGH NEURAL ANALYSIS.</p>
+</div>
+<div class="p-8 bg-[#1C1B1B]">
+<h3 class="text-white font-bold text-xl mb-4 uppercase">REAL-TIME SITE MONITORING</h3>
+<p class="text-sm text-[#D0C5AF] font-mono">COMPUTER VISION TRACKING EVERY BRICK LAID.</p>
+</div>
+<div class="p-8 bg-[#1C1B1B]">
+<h3 class="text-white font-bold text-xl mb-4 uppercase">CONTRACTOR ACCOUNTABILITY</h3>
+<p class="text-sm text-[#D0C5AF] font-mono">BLOCKCHAIN LEDGER FOR EVERY TRANSACTION.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. THE BRIDGE -->
+<section class="py-48 px-12 md:px-24 bg-[#131313] text-center">
+<h2 class="text-[clamp(2rem,6vw,5rem)] font-bold text-white uppercase tracking-tighter leading-none">
+                "I HAVE PROVEN <br/> I CAN <span class="text-[#D4AF37]">BUILD FAST</span>."
+            </h2>
+</section>
+<!-- 4. TEMPLO: PROBLEM + DEMO -->
+<section class="min-h-screen px-12 md:px-24 bg-[#0E0E0E] flex flex-col justify-center" id="proof">
+<div class="grid md:grid-cols-2 gap-24">
+<div class="space-y-12">
+<h2 class="text-sm font-mono text-[#D4AF37] tracking-[0.5em] uppercase">Templo: The Infrastructure of Identity</h2>
+<div class="space-y-6">
+<h3 class="text-5xl font-bold text-white uppercase leading-tight">Identity <br/> Infrastructure.</h3>
+<p class="text-2xl text-[#D0C5AF] leading-relaxed">Most families cannot tell you which temple their ancestors worshipped at. We are losing our roots to data decay.</p>
+</div>
+<div class="pt-8">
+<div class="inline-block bg-[#D4AF37] text-[#3C2F00] px-8 py-4 font-bold text-xl uppercase tracking-widest">
+                            TEMPLO: THE AI KULADEIVAM MATCHER
+                        </div>
+</div>
+</div>
+<!-- Terminal UI Demo Placeholder -->
+<div class="bg-[#131313] border border-[#4D4635]/40 p-1 font-mono">
+<div class="bg-[#2A2A2A] px-4 py-2 flex justify-between items-center text-[10px] text-[#D0C5AF]">
+<span>TEMPLO_v1.0.4_LIVE_QUERY</span>
+<div class="flex space-x-2">
+<div class="w-2 h-2 bg-[#D4AF37]"></div>
+<div class="w-2 h-2 bg-[#4D4635]"></div>
+</div>
+</div>
+<div class="p-12 space-y-12">
+<div class="border-l border-[#D4AF37] pl-6">
+<div class="text-[#D4AF37] text-xs uppercase mb-2">Status</div>
+<div class="text-3xl text-white font-bold">MATCH IDENTIFIED</div>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div>
+<div class="text-[#D0C5AF] text-[10px] uppercase mb-1">Ancestral Temple</div>
+<div class="text-lg text-white font-bold">Sri Kottai Mariamman</div>
+</div>
+<div>
+<div class="text-[#D0C5AF] text-[10px] uppercase mb-1">Deity</div>
+<div class="text-lg text-white font-bold">Shakti / Amman</div>
+</div>
+</div>
+<div class="aspect-video bg-[#1C1B1B] relative flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+<div class="z-10 text-center">
+<span class="material-symbols-outlined text-[#D4AF37] text-6xl block mb-4">location_on</span>
+<div class="text-white text-xs tracking-widest">MAP_RENDER_COORDINATES: 10.7870° N, 79.1378° E</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. THE SCALE & VISION -->
+<section class="min-h-screen flex flex-col justify-center px-12 md:px-24 bg-[#131313]" id="vision">
+<div class="max-w-4xl space-y-12">
+<h2 class="text-sm font-mono text-[#D4AF37] tracking-[0.5em] uppercase">The Scale</h2>
+<div class="text-[clamp(4rem,15vw,12rem)] font-bold text-[#D4AF37] leading-none mb-4">800 MILLION</div>
+<h3 class="text-4xl text-white font-bold uppercase tracking-tight">The Problem in every Indian language.</h3>
+<p class="text-2xl text-[#D0C5AF] leading-relaxed">
+                    59% of spiritual tourists are Gen Z. They seek connection, not just travel. Same trust problem. Families and Roots. Homeowners and Contractors. It's all about <span class="text-white font-bold">Verifiable Truth.</span>
+</p>
+</div>
+</section>
+<!-- 6. THE CLOSE -->
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-12 bg-[#0E0E0E]">
+<div class="space-y-8">
+<p class="text-2xl md:text-3xl text-[#D0C5AF] font-mono uppercase tracking-[0.2em]">I DON'T JUST TALK ABOUT WHAT I'D BUILD.</p>
+<h2 class="text-[clamp(4rem,18vw,15rem)] font-bold text-white leading-none tracking-tighter uppercase">I BUILD IT.</h2>
+<div class="pt-12">
+<p class="text-3xl md:text-5xl font-bold text-[#D4AF37] uppercase tracking-widest border-t border-[#4D4635] pt-12 inline-block">
+                        THAT'S WHY I BELONG IN THE ROOM.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full bg-[#131313] text-[#D0C5AF] font-mono text-[10px] tracking-widest uppercase border-t border-[#4D4635]/20 flex justify-between items-center px-12 py-6 z-50">
+<div class="text-[#D4AF37] font-bold">©2024 THE SOVEREIGN TERMINAL / BUILT FOR BUILDERS</div>
+<div class="flex space-x-12">
+<a class="hover:text-[#D4AF37] transition-colors duration-100" href="#">MANIFESTO</a>
+<a class="hover:text-[#D4AF37] transition-colors duration-100" href="#">TERMINAL_LOG</a>
+<a class="hover:text-[#D4AF37] transition-colors duration-100" href="#">ENCRYPTED_CONTACT</a>
+</div>
+</footer>
+</body></html>
