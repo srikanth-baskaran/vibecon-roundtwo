@@ -22,14 +22,14 @@
 **0:00–0:05**
 *Still. Eyes directly on the lens. No smile yet.*
 
-> "My name is Srikanth Baskaran. Solutions Architect. Chennai."
+> "I am Srikanth Baskaran. Solutions Architect."
 
 ---
 
 **0:05–0:13**
 *Lean forward slightly. Claim first, proof second.*
 
-> "I deliver systems for the US State Government and global enterprises. I build solo with AI — idea to MVP in days."
+> "I deliver systems for the US State Government and global enterprises. I build solo with AI, idea to MVP in days."
 
 ---
 
@@ -47,22 +47,22 @@
 **0:25–0:35**
 *Sit back slightly. Direct. Answering their question.*
 
-> "You asked what I'd build with full backing. Here it is."
+> "You asked what I would build with full backing. Here it is."
 
 *One beat.*
 
-> "India's residential construction market — 268 billion dollars. 9 million individual homes built every year."
+> "India's residential construction market is 268 billion dollars. 9 million individual homes built every year."
 
 ---
 
 **0:35–0:52**
 *Measured. One pain, not a list.*
 
-> "But it's fundamentally opaque. Homeowners can't assess true costs, detect inflation, or catch fraud — and the realization hits only after payment."
+> "But it is fundamentally opaque. Homeowners can't assess true costs, detect inflation, or catch fraud and the realization hits only after payment."
 
 *One beat.*
 
-> "The result? Lakhs of stalled projects, mid-construction, fueled by blind trust."
+> "The result? Lakhs of stalled projects, mid-construction, because of BLIND TRUST."
 
 *"Blind trust" — two words. Slow. Full stop.*
 
@@ -86,7 +86,7 @@
 **1:00–1:10**
 *Slight smile. Certain — not apologetic. This is the one warm moment.*
 
-> "But I don't just talk about ideas. Last month, I shipped a live product — solving a problem 85 million people never had an answer to. Let me show you."
+> "But I don't just talk about ideas. Last month, I shipped a live product solving a problem 85 million people never had an answer to. Let me show you."
 
 ✂ **Switch to screen share. Tab 1 — Templo homepage.**
 
