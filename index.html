@@ -345,16 +345,21 @@
   }
 
   .stat-caption {
-  .stat-caption-lg {
-    font-size: clamp(1.2rem, 2.6vw, 1.9rem);
-    letter-spacing: 0.2em;
-  }
-
     font-size: 0.7rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--text-muted);
     margin-top: 1vh;
+  }
+
+  .stat-caption-lg {
+    font-size: clamp(1.2rem, 2.6vw, 1.9rem);
+    letter-spacing: 0.2em;
+  }
+
+  .stat-caption-xl {
+    font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+    letter-spacing: 0.18em;
   }
 
   /* ─── Video embed ─── */
@@ -498,11 +503,11 @@
     <div class="stat-pair fade-up fade-up-d2">
       <div class="stat-block">
         <div class="value">$268B</div>
-        <div class="stat-caption stat-caption-lg">India&apos;s residential construction market</div>
+        <div class="stat-caption stat-caption-lg stat-caption-xl">India&apos;s residential construction market</div>
       </div>
       <div class="stat-block">
         <div class="value">9M</div>
-        <div class="stat-caption stat-caption-lg">Individual homes built every year</div>
+        <div class="stat-caption stat-caption-lg stat-caption-xl">Individual homes built every year</div>
       </div>
     </div>
   </div>
